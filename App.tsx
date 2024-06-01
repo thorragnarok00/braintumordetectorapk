@@ -72,20 +72,22 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Brain Tumor Detection</Text>
-      <TouchableOpacity style={styles.button} onPress={takePicture}>
-        <Text style={styles.buttonText}>Take a picture</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={pickImage}>
-        <Text style={styles.buttonText}>Pick an image from gallery</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <Button title="Take Photo" onPress={takePicture} />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Button title="Select Image" onPress={pickImage} color="#4CAF50" />
+      </View>
+      {image && <View style={styles.predictButtonContainer}>
+        <Button title="Predict Image" onPress={predictImage} disabled={!image} color="#ffc107" />
+      </View>}
       {image && <Image source={{ uri: image }} style={styles.image} />}
-      {image && <TouchableOpacity style={styles.button} onPress={predictImage}>
-        <Text style={styles.buttonText}>Predict Image</Text>
-      </TouchableOpacity>}
-      {prediction && <Text style={styles.prediction}>Prediction: <Text style={styles.predictionText}>{prediction}</Text></Text>}
-      {image && <TouchableOpacity style={styles.clearButton} onPress={clearImage}>
-        <Text style={styles.clearButtonText}>Clear</Text>
-      </TouchableOpacity>}
+      {prediction && <View style={styles.predictionContainer}>
+        <Text style={styles.prediction}>Prediction: <Text style={styles.predictionText}>{prediction}</Text></Text>
+      </View>}
+      {image && <View style={styles.buttonContainer}>
+        <Button title="Clear" onPress={clearImage} color="#ff6057" />
+      </View>}
     </View>
   );
 };
@@ -95,26 +97,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#121212',
+    backgroundColor: "#f0f0f0",
     padding: 20,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#ffffff',
+    fontWeight: "bold",
     marginBottom: 20,
   },
-  button: {
-    backgroundColor: '#3f51b5',
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  buttonContainer: {
+    marginTop: 10,
+    width: 120,
   },
   image: {
     width: 300,
@@ -122,30 +115,21 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     marginTop: 20,
     marginBottom: 20,
-    borderRadius: 10,
   },
   prediction: {
-    fontSize: 16,
-    color: '#ffffff',
+    fontSize: 20,
     textAlign: 'center',
   },
   predictionText: {
     fontWeight: 'bold',
-    fontSize: 18,
-    color: '#ffeb3b', // Yellow color for prediction text
+    fontSize: 20,
   },
-  clearButton: {
-    backgroundColor: '#f44336', // Red color for clear button
-    padding: 10,
-    borderRadius: 5,
+  predictionContainer: {
+    marginBottom: 10,
+  },
+  predictButtonContainer: {
     marginTop: 10,
-    width: '25%'
-  },
-  clearButtonText: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    marginBottom: 10,
   },
 });
 
